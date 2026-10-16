@@ -1,0 +1,1033 @@
+﻿<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DAILY MACRO & MARKET BRIEF</title>
+  <style>
+    :root {
+      --bg-paper: #F6F6F3;
+      --bg-card: #FFFFFF;
+      --bg-subtle: #EFEFEC;
+      --text-main: #1A1A1A;
+      --text-sub: #555555;
+      --text-muted: #888888;
+      --border-light: #E2E2DF;
+      --border-medium: #D5D5D0;
+      --border-heavy: #1A1A1A;
+      --font-sans: -apple-system, BlinkMacSystemFont, "Pretendard", "Segoe UI", Roboto, "Noto Sans KR", sans-serif;
+      --font-serif: "Georgia", "Times New Roman", "Batang", serif;
+      --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg-paper);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding: 24px 16px 64px;
+    }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* 1. Header (Newspaper Masthead Style) */
+    .masthead {
+      border-top: 4px solid var(--border-heavy);
+      border-bottom: 4px double var(--border-heavy);
+      padding: 20px 0 16px;
+      margin-bottom: 32px;
+      background-color: var(--bg-paper);
+    }
+
+    .masthead-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-medium);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .masthead-title {
+      font-family: var(--font-serif);
+      font-size: clamp(1.85rem, 4vw, 3.1rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      text-align: center;
+      line-height: 1.15;
+      color: var(--text-main);
+      margin-bottom: 14px;
+    }
+
+    .masthead-bottom {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 8px;
+      border-top: 1px solid var(--border-medium);
+      padding-top: 10px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-main);
+      font-variant-numeric: tabular-nums;
+    }
+
+    .masthead-badge {
+      display: inline-block;
+      background-color: var(--text-main);
+      color: #FFFFFF;
+      font-size: 0.72rem;
+      padding: 2px 8px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    /* Section Header */
+    .section-header {
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      border-bottom: 2px solid var(--border-heavy);
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+
+    .section-title {
+      font-size: 1.05rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .section-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    /* Top Layout: Key Takeaways + Market Indicators */
+    .overview-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 32px;
+      margin-bottom: 40px;
+    }
+
+    /* 2. Key Takeaways (3-Column Grid) */
+    .takeaways-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-medium);
+    }
+
+    .takeaway-card {
+      padding: 22px 24px;
+      border-right: 1px solid var(--border-light);
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .takeaway-card:last-child {
+      border-right: none;
+    }
+
+    .takeaway-number {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      border-bottom: 1px solid var(--border-light);
+      padding-bottom: 6px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .takeaway-number::after {
+      content: "EXECUTIVE SUMMARY";
+      font-size: 0.65rem;
+      letter-spacing: 0.06em;
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .takeaway-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      line-height: 1.4;
+      word-break: keep-all;
+    }
+
+    .takeaway-summary {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      line-height: 1.65;
+      word-break: keep-all;
+    }
+
+    /* 3. Market Indicators Table */
+    .indicators-wrapper {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      overflow-x: auto;
+    }
+
+    .indicators-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .indicators-table th,
+    .indicators-table td {
+      padding: 13px 18px;
+      text-align: right;
+      border-bottom: 1px solid var(--border-light);
+      font-size: 0.9rem;
+    }
+
+    .indicators-table th:first-child,
+    .indicators-table td:first-child {
+      text-align: left;
+    }
+
+    .indicators-table thead th {
+      background-color: var(--bg-subtle);
+      color: var(--text-sub);
+      font-size: 0.76rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-bottom: 1px solid var(--border-medium);
+    }
+
+    .indicators-table tbody tr:last-child td {
+      border-bottom: none;
+    }
+
+    .indicators-table tbody tr:hover {
+      background-color: #FAFAFA;
+    }
+
+    .indicator-name {
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.02em;
+    }
+
+    .indicator-unit {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      font-weight: 400;
+      margin-left: 6px;
+    }
+
+    .indicator-value {
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--text-main);
+      font-size: 0.96rem;
+    }
+
+    /* Monotone classic up/down differentiation */
+    .val-up {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      color: var(--text-main);
+    }
+
+    .val-up .dir-symbol {
+      font-size: 0.7rem;
+      margin-right: 3px;
+    }
+
+    .val-down {
+      font-family: var(--font-mono);
+      font-style: italic;
+      font-weight: 500;
+      color: #666666;
+    }
+
+    .val-down .dir-symbol {
+      font-size: 0.7rem;
+      font-style: normal;
+      margin-right: 3px;
+    }
+
+    .val-flat {
+      font-family: var(--font-mono);
+      color: var(--text-muted);
+    }
+
+    .rate-pill {
+      display: inline-block;
+      padding: 2px 8px;
+      border: 1px solid var(--border-medium);
+      font-size: 0.82rem;
+      min-width: 72px;
+      text-align: right;
+    }
+
+    .val-up .rate-pill {
+      background-color: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+      font-weight: 700;
+    }
+
+    .val-down .rate-pill {
+      background-color: var(--bg-subtle);
+      color: #555555;
+      border-color: var(--border-medium);
+    }
+
+    /* 4. Featured News Cards */
+    .news-controls {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .btn-control {
+      background: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      color: var(--text-main);
+      font-family: var(--font-sans);
+      font-size: 0.76rem;
+      font-weight: 600;
+      padding: 5px 11px;
+      cursor: pointer;
+      transition: background-color 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-control:hover {
+      background: var(--text-main);
+      color: #FFFFFF;
+      border-color: var(--text-main);
+    }
+
+    .news-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+
+    .news-card {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-medium);
+      display: flex;
+      flex-direction: column;
+      transition: border-color 0.15s ease;
+    }
+
+    /* Let the 5th (last odd) card span full width on desktop for balanced newspaper layout */
+    .news-card:nth-child(5) {
+      grid-column: 1 / -1;
+    }
+
+    .news-card:hover {
+      border-color: var(--border-heavy);
+    }
+
+    .news-card-header {
+      padding: 20px 24px 16px;
+      border-bottom: 1px solid var(--border-light);
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .news-meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 10px;
+      font-size: 0.76rem;
+    }
+
+    .news-tags {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .news-index {
+      font-family: var(--font-mono);
+      font-weight: 800;
+      background-color: var(--text-main);
+      color: #FFFFFF;
+      padding: 1px 7px;
+      font-size: 0.72rem;
+    }
+
+    .news-category {
+      font-weight: 700;
+      color: var(--text-main);
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-light);
+      padding: 1px 8px;
+    }
+
+    .news-source {
+      color: var(--text-muted);
+      font-weight: 500;
+    }
+
+    .news-headline-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      gap: 16px;
+    }
+
+    .news-title {
+      font-size: 1.15rem;
+      font-weight: 800;
+      line-height: 1.4;
+      color: var(--text-main);
+      word-break: keep-all;
+    }
+
+    .toggle-indicator {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      border: 1px solid var(--border-light);
+      padding: 2px 7px;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    .news-card-body {
+      padding: 20px 24px 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      flex: 1;
+    }
+
+    .news-card.is-collapsed .news-card-body {
+      display: none;
+    }
+
+    .news-card.is-collapsed .news-card-header {
+      border-bottom: none;
+    }
+
+    /* 5th card horizontal split on wide screens when expanded */
+    @media (min-width: 960px) {
+      .news-card:nth-child(5) .analysis-columns {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+      }
+      .news-card:nth-child(5) .analysis-block {
+        border-bottom: none;
+        padding-bottom: 0;
+        border-right: 1px solid var(--border-light);
+        padding-right: 18px;
+      }
+      .news-card:nth-child(5) .analysis-block:last-child {
+        border-right: none;
+        padding-right: 0;
+      }
+    }
+
+    .analysis-columns {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .analysis-block {
+      padding-bottom: 14px;
+      border-bottom: 1px dashed var(--border-light);
+    }
+
+    .analysis-block:last-child {
+      padding-bottom: 0;
+      border-bottom: none;
+    }
+
+    .analysis-label {
+      font-size: 0.78rem;
+      font-weight: 800;
+      color: var(--text-main);
+      letter-spacing: 0.03em;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .analysis-label .tag-bracket {
+      font-family: var(--font-mono);
+      color: var(--text-sub);
+    }
+
+    .analysis-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .analysis-list li {
+      position: relative;
+      padding-left: 14px;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.6;
+      word-break: keep-all;
+      font-variant-numeric: tabular-nums;
+    }
+
+    .analysis-list li::before {
+      content: "▪";
+      position: absolute;
+      left: 0;
+      top: 0;
+      color: var(--text-main);
+      font-size: 0.75rem;
+    }
+
+    /* Action Tip Box */
+    .action-tip-box {
+      margin-top: auto;
+      background-color: var(--bg-subtle);
+      border: 1px solid var(--border-medium);
+      border-left: 3px solid var(--border-heavy);
+      padding: 12px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .action-tip-label {
+      font-size: 0.74rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text-main);
+      text-transform: uppercase;
+    }
+
+    .action-tip-text {
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--text-main);
+      line-height: 1.5;
+      word-break: keep-all;
+    }
+
+    /* Footer */
+    .report-footer {
+      margin-top: 48px;
+      padding-top: 16px;
+      border-top: 2px solid var(--border-heavy);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 0.78rem;
+      color: var(--text-muted);
+    }
+
+    /* Responsive Adjustments */
+    @media (max-width: 900px) {
+      .takeaways-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .takeaway-card {
+        border-right: none;
+        border-bottom: 1px solid var(--border-light);
+      }
+
+      .takeaway-card:last-child {
+        border-bottom: none;
+      }
+
+      .news-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .news-card:nth-child(5) {
+        grid-column: auto;
+      }
+    }
+
+    @media (max-width: 600px) {
+      body {
+        padding: 12px 12px 48px;
+      }
+
+      .masthead-top {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 4px;
+      }
+
+      .takeaway-card,
+      .news-card-header,
+      .news-card-body {
+        padding: 16px;
+      }
+
+      .indicators-table th,
+      .indicators-table td {
+        padding: 10px 12px;
+        font-size: 0.84rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- 1. 발행 헤더 (Header) -->
+    <header class="masthead" id="masthead-container"></header>
+
+    <div class="overview-grid">
+      <!-- 2. 오늘의 핵심 (Key Takeaways) -->
+      <section aria-labelledby="section-takeaways">
+        <div class="section-header">
+          <h2 class="section-title" id="section-takeaways">I. Key Takeaways · 오늘의 핵심 3가지</h2>
+          <span class="section-subtitle">Executive Macro &amp; Sector Synthesis</span>
+        </div>
+        <div class="takeaways-grid" id="takeaways-container"></div>
+      </section>
+
+      <!-- 3. 시장 지표 테이블 (Market Indicators) -->
+      <section aria-labelledby="section-indicators">
+        <div class="section-header">
+          <h2 class="section-title" id="section-indicators">II. Market Indicators · 주요 시장 지표</h2>
+          <span class="section-subtitle">Closing &amp; Intraday Benchmark Quotes</span>
+        </div>
+        <div class="indicators-wrapper">
+          <table class="indicators-table" aria-label="시장 지표 테이블">
+            <thead>
+              <tr>
+                <th scope="col">지표명 (Index / Asset)</th>
+                <th scope="col">현재가 (Last)</th>
+                <th scope="col">변동폭 (Chg)</th>
+                <th scope="col">변동률 (% Chg)</th>
+              </tr>
+            </thead>
+            <tbody id="indicators-tbody"></tbody>
+          </table>
+        </div>
+      </section>
+    </div>
+
+    <!-- 4. 오늘의 주요뉴스 5대 카드 (Featured News) -->
+    <section aria-labelledby="section-news">
+      <div class="section-header">
+        <div>
+          <h2 class="section-title" id="section-news">III. Featured News &amp; Deep Dive · 5대 주요 뉴스 분석</h2>
+        </div>
+        <div class="news-controls">
+          <button type="button" class="btn-control" id="btn-expand-all">모두 펼치기</button>
+          <button type="button" class="btn-control" id="btn-collapse-all">모두 접기</button>
+        </div>
+      </div>
+      <div class="news-grid" id="news-container"></div>
+    </section>
+
+    <footer class="report-footer">
+      <div>DAILY MACRO &amp; MARKET BRIEF · MONOTONE FINANCIAL EDITION</div>
+      <div id="footer-meta">DATA DRIVEN DYNAMIC RENDERING ENGINE</div>
+    </footer>
+  </div>
+
+  <script>
+    // 상단 샘플 JSON 데이터 선언 (이 객체만 교체하면 renderDashboard()를 통해 전체 화면이 갱신됨)
+    const reportData = {
+      "date": "2026-10-14",
+      "key_takeaways": [
+        {
+          "order": 1,
+          "title": "국내 양대 지수 혼조 및 반도체 대형주 중심 기술적 반등",
+          "summary": "전일 급락 이후 미국 국채금리 안정 및 글로벌 빅테크 상승 전환 영향으로 코스피는 +0.82% 반등했으나 코스닥은 -0.47% 하락하며 차별화된 흐름을 보였습니다."
+        },
+        {
+          "order": 2,
+          "title": "중국 CXMT D램 추격 우려 속 소부장 옥석 가리기 진행",
+          "summary": "중국 창신메모리의 서버용 D램 진입 계획이 전해진 가운데 반도체 밸류체인 내부에서는 후공정과 전공정, 실적 가시성에 따라 기관 및 고수익 투자자의 수급이 양극화되고 있습니다."
+        },
+        {
+          "order": 3,
+          "title": "삼성전자 대규모 오너가 지분 거래 및 차세대 HBM 기대감",
+          "summary": "이재용 회장의 약 4.5조 원 규모 지분 장외매수 및 증여 계약 공시가 발표되었으며, 증권가에서는 HBM4 도입 및 고도화에 따른 중장기 실적 지속성을 관측하고 있습니다."
+        }
+      ],
+      "market_indicators": [
+        { "name": "KOSPI", "current_value": "6,082.90", "change": "+49.55", "change_rate": "+0.82%", "unit": "pt" },
+        { "name": "KOSDAQ", "current_value": "833.15", "change": "-3.94", "change_rate": "-0.47%", "unit": "pt" },
+        { "name": "USD/KRW", "current_value": "1,336.80", "change": "-6.20", "change_rate": "-0.46%", "unit": "KRW" },
+        { "name": "WTI", "current_value": "78.20", "change": "-0.95", "change_rate": "-1.20%", "unit": "USD/bbl" }
+      ],
+      "featured_news": [
+        {
+          "id": 1,
+          "title": "SK하이닉스 저가 매수세 유입 및 반등",
+          "category": "반도체 / 수급",
+          "source": "신지민 기자",
+          "observed_facts": [
+            "14일 11시 기준 미래에셋증권 상위 1% 투자자 순매수 1위로 SK하이닉스 집계",
+            "SK하이닉스 주가 전 거래일 대비 2.08% 상승한 147만 3,000원에 거래",
+            "전 거래일(13일) SK하이닉스 주가 10.09% 급락, 코스피 5.46% 급락 기록"
+          ],
+          "transmission_path": [
+            "전일 급락에 따른 밸류에이션 부담 완화로 단기 저가 매수 자금 유입",
+            "미국 반도체 지수(엔비디아, AMD) 상승 전환이 국내 메모리 대형주 매수 심리 회복으로 전이"
+          ],
+          "invalidating_conditions": [
+            "미국 기술주 중심의 나스닥 지수가 재차 3% 이상 급락세로 돌아설 경우",
+            "SK하이닉스의 분기 실적 발표에서 메모리 출하량 증가율이 전분기 대비 마이너스로 전환될 경우"
+          ],
+          "action_tip": "외국인/기관의 양매수 지속 여부와 미 증시 필라델피아 반도체 지수의 연속 반등 여부를 동시 체크할 것."
+        },
+        {
+          "id": 2,
+          "title": "중국 창신메모리(CXMT) 서버용 D램 출시 계획 발표",
+          "category": "글로벌 경쟁 / IT",
+          "source": "신지민 기자",
+          "observed_facts": [
+            "중국 CXMT의 서버용 D램 출시 계획 공식화",
+            "증권가 분석: 양산 수율, 글로벌 고객사 인증, 실제 출하 규모 검증 단계 필요"
+          ],
+          "transmission_path": [
+            "중국 로컬 메모리의 서버 시장 진입 시도로 기존 글로벌 메모리 과점 공급사의 범용 D램 시장 점유율 잠식 가능성 대두",
+            "HBM 생산라인 전환으로 인한 범용 D램 공급 부족 완충 효과와의 상쇄 강도에 따라 향후 판가 결정"
+          ],
+          "invalidating_conditions": [
+            "CXMT 서버용 D램의 글로벌 주요 CSP 공급사 정식 납품 인증 및 양산 수율 70% 이상 달성이 공식 확인될 경우",
+            "미국 상무부의 대중국 반도체 장비 반출 통제 강화로 CXMT의 공정 증설이 물리적으로 중단될 경우"
+          ],
+          "action_tip": "실제 출하 규모 및 글로벌 CSP의 퀄(품질) 테스트 통과 여부에 관한 외신 후속 보도 모니터링 필요."
+        },
+        {
+          "id": 3,
+          "title": "반도체 소재·부품·장비 종목별 수급 양극화",
+          "category": "소부장 / 증시수급",
+          "source": "신지민 기자",
+          "observed_facts": [
+            "티에스이(-1.52%), 티엘비(-5.85%), 원익IPS(-4.83%)는 주가 하락에도 상위 1% 순매수 상위권 기록",
+            "주성엔지니어링(-3.82%), 이오테크닉스(-3.95%), 디아이, 두산테스나는 순매도 상위 기록",
+            "최근 시장 수급의 전공정 장비 대비 후공정(패키징/테스트) 선호 흐름 확인"
+          ],
+          "transmission_path": [
+            "소부장 섹터 내 급등 이후 종목별 밸류에이션 및 실적 가시성에 따른 포트폴리오 압축 진행",
+            "패키징 및 테스트 등 HBM 고도화와 직결된 후공정 밸류체인과 전공정 장비사 간 실적 차별화 심화"
+          ],
+          "invalidating_conditions": [
+            "메모리 제조사들의 신규 팹(Fab) 클린룸 착공 및 전공정 장비 투자가 전년 동기 대비 30% 이상 확대 발표될 경우",
+            "후공정 주요 외주패키징테스트(OSAT) 및 부품사의 평균 분기 영업이익률이 5% 미만으로 둔화될 경우"
+          ],
+          "action_tip": "테마성 동반 상승 대신 후공정(OSAT/검사장비) 관련 수주 잔고가 분기별로 실적에 반영되는지 개별 공시 확인."
+        },
+        {
+          "id": 4,
+          "title": "삼성전자 최대주주 등 소유주식변동 신고 (장외매수 및 증여)",
+          "category": "지배구조 / 공시",
+          "source": "신하연 기자",
+          "observed_facts": [
+            "10월 12일 이재용 회장이 홍라희 명예관장 보통주 766만 7,100주를 주당 25만 500원(총 1.92조 원)에 장외매수",
+            "11월 12일 홍 명예관장의 삼성전자 보통주 1,115만 8,000주(약 2.59조 원 상당) 증여 예정 공시",
+            "증여 완료 시 이 회장 지분율 1.58%에서 1.75%로 확대",
+            "상장주식 증여세는 증여일 전후 각 2개월(총 4개월) 종가 평균으로 산정되며 단순 계산 시 세액 약 1.55조 원 추산"
+          ],
+          "transmission_path": [
+            "대주주 일가 내부 지분 정리를 통한 지배력 안정화 및 승계 구조 확립",
+            "4개월간의 평균 주가 산정 방식에 따른 증여세 납부 재원 조달 변수 발생"
+          ],
+          "invalidating_conditions": [
+            "11월 12일로 공시된 증여 계약이 취소 또는 정정 공시될 경우",
+            "과세표준 산정 기간(2026년 9월~2027년 1월) 내 주가 변동으로 인해 최종 확정 증여세액이 추산액 대비 40% 이상 변동될 경우"
+          ],
+          "action_tip": "대주주 증여 시점 전후의 주가 방어 및 배당 등 주주환원 정책 확대 가능성을 연계하여 추적할 것."
+        },
+        {
+          "id": 5,
+          "title": "삼성전자 4분기 실적 추정 및 HBM4 단가 인상 전망",
+          "category": "기업실적 / 메모리",
+          "source": "신하연 기자",
+          "observed_facts": [
+            "14일 장중 삼성전자 주가 전 거래일 대비 +3.66% 상승한 24만 500원에 거래",
+            "증권가 실적 추정: KB증권 4분기 영업이익 114조 원(+6%), 유진투자증권 118.8조 원 추정",
+            "보고서 전망: 2027년 HBM4 공급 효과로 단가 전년 대비 100% 이상 상승 전망 언급"
+          ],
+          "transmission_path": [
+            "차세대 HBM4 적용 본격화에 따른 D램 블렌디드 ASP(평균판매단가) 상승 및 마진율 개선",
+            "영업이익 및 잉여현금흐름 증가에 따른 배당 및 자사주 소각 등 주주환원 재원 확대 기대"
+          ],
+          "invalidating_conditions": [
+            "삼성전자의 2026년 4분기 확정 영업이익이 100조 원 미만으로 집계될 경우",
+            "차세대 HBM4 양산 시점이 고객사 검증 지연으로 6개월 이상 연기될 경우"
+          ],
+          "action_tip": "차기 분기 컨퍼런스 콜에서 HBM4 고객사 납품 일정 및 D램 비트그로스(출하량 증가율) 가이던스 확인."
+        }
+      ]
+    };
+
+    /**
+     * HTML 특수문자 이스케이프 헬퍼 함수
+     */
+    function escapeHtml(str) {
+      if (str === null || str === undefined) return "";
+      return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+    }
+
+    /**
+     * 날짜 문자열(YYYY-MM-DD)을 신문 제호 포맷으로 변환
+     */
+    function formatReportDate(dateStr) {
+      if (!dateStr) return "N/A";
+      const parts = dateStr.split("-");
+      if (parts.length !== 3) return dateStr;
+      const year = parseInt(parts[0], 10);
+      const month = parseInt(parts[1], 10) - 1;
+      const day = parseInt(parts[2], 10);
+      const dateObj = new Date(year, month, day);
+      if (isNaN(dateObj.getTime())) return dateStr;
+
+      const weekdaysKo = ["일요일", "월요일", "화요일", "수요일", "목요일", "금요일", "토요일"];
+      const weekdaysEn = ["SUNDAY", "MONDAY", "TUESDAY", "WEDNESDAY", "THURSDAY", "FRIDAY", "SATURDAY"];
+      const monthsEn = ["JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"];
+
+      const wKo = weekdaysKo[dateObj.getDay()];
+      const wEn = weekdaysEn[dateObj.getDay()];
+      const mEn = monthsEn[dateObj.getMonth()];
+
+      return `${year}년 ${parts[1]}월 ${parts[2]}일 ${wKo} (${wEn}, ${mEn} ${parts[2]}, ${year})`;
+    }
+
+    /**
+     * 변동폭/변동률 부호 판별 헬퍼
+     */
+    function getDirectionMeta(changeStr, rateStr) {
+      const raw = `${changeStr || ""} ${rateStr || ""}`;
+      if (raw.includes("+")) {
+        return { className: "val-up", symbol: "▲" };
+      }
+      if (raw.includes("-")) {
+        return { className: "val-down", symbol: "▼" };
+      }
+      return { className: "val-flat", symbol: "―" };
+    }
+
+    /**
+     * 불릿 리스트 렌더링 헬퍼
+     */
+    function renderBulletList(items) {
+      if (!Array.isArray(items) || items.length === 0) {
+        return `<ul class="analysis-list"><li>데이터 없음</li></ul>`;
+      }
+      const listItems = items
+        .map((item) => `<li>${escapeHtml(item)}</li>`)
+        .join("");
+      return `<ul class="analysis-list">${listItems}</ul>`;
+    }
+
+    /**
+     * 전체 대시보드를 동적으로 렌더링하는 메인 함수
+     */
+    function renderDashboard(data = reportData) {
+      const mastheadEl = document.getElementById("masthead-container");
+      const takeawaysEl = document.getElementById("takeaways-container");
+      const indicatorsTbodyEl = document.getElementById("indicators-tbody");
+      const newsContainerEl = document.getElementById("news-container");
+      const footerMetaEl = document.getElementById("footer-meta");
+
+      // 현재 렌더링(업데이트) 시각 포맷팅
+      const now = new Date();
+      const pad = (n) => String(n).padStart(2, "0");
+      const updatedTimeStr = `${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())} ${pad(now.getHours())}:${pad(now.getMinutes())}:${pad(now.getSeconds())} KST`;
+
+      // 1. 발행 헤더 렌더링
+      mastheadEl.innerHTML = `
+        <div class="masthead-top">
+          <span>VOL. INSTITUTIONAL RESEARCH EDITION</span>
+          <span>SEOUL · NEW YORK · LONDON · TOKYO</span>
+          <span>UPDATED: ${escapeHtml(updatedTimeStr)}</span>
+        </div>
+        <h1 class="masthead-title">DAILY MACRO &amp; MARKET BRIEF</h1>
+        <div class="masthead-bottom">
+          <div><span class="masthead-badge">ISSUE DATE</span> &nbsp;${escapeHtml(formatReportDate(data.date))}</div>
+          <div>KEY TAKEAWAYS (${(data.key_takeaways || []).length}) · MARKET INDICATORS (${(data.market_indicators || []).length}) · FEATURED REPORTS (${(data.featured_news || []).length})</div>
+        </div>
+      `;
+
+      // 2. 오늘의 핵심 (Key Takeaways - 3가지) 렌더링
+      const sortedTakeaways = [...(data.key_takeaways || [])].sort((a, b) => (a.order || 0) - (b.order || 0));
+      takeawaysEl.innerHTML = sortedTakeaways
+        .map((item, idx) => {
+          const numStr = String(item.order || idx + 1).padStart(2, "0");
+          return `
+            <article class="takeaway-card">
+              <div class="takeaway-number">${escapeHtml(numStr)}</div>
+              <h3 class="takeaway-title">${escapeHtml(item.title)}</h3>
+              <p class="takeaway-summary">${escapeHtml(item.summary)}</p>
+            </article>
+          `;
+        })
+        .join("");
+
+      // 3. 시장 지표 테이블 (Market Indicators) 렌더링
+      indicatorsTbodyEl.innerHTML = (data.market_indicators || [])
+        .map((ind) => {
+          const dir = getDirectionMeta(ind.change, ind.change_rate);
+          return `
+            <tr>
+              <td>
+                <span class="indicator-name">${escapeHtml(ind.name)}</span>
+                <span class="indicator-unit">${escapeHtml(ind.unit)}</span>
+              </td>
+              <td class="indicator-value">${escapeHtml(ind.current_value)}</td>
+              <td class="${dir.className}">
+                <span class="dir-symbol" aria-hidden="true">${dir.symbol}</span>${escapeHtml(ind.change)}
+              </td>
+              <td class="${dir.className}">
+                <span class="rate-pill">${escapeHtml(ind.change_rate)}</span>
+              </td>
+            </tr>
+          `;
+        })
+        .join("");
+
+      // 4. 오늘의 주요뉴스 5대 카드 (Featured News) 렌더링
+      newsContainerEl.innerHTML = (data.featured_news || [])
+        .map((news, idx) => {
+          const displayId = String(news.id || idx + 1).padStart(2, "0");
+          return `
+            <article class="news-card" data-news-id="${escapeHtml(news.id)}">
+              <div class="news-card-header" role="button" tabindex="0" aria-expanded="true" title="클릭하여 분석 내용 접기/펼치기">
+                <div class="news-meta">
+                  <div class="news-tags">
+                    <span class="news-index">REPORT #${escapeHtml(displayId)}</span>
+                    <span class="news-category">${escapeHtml(news.category)}</span>
+                  </div>
+                  <span class="news-source">취재·출처: ${escapeHtml(news.source)}</span>
+                </div>
+                <div class="news-headline-row">
+                  <h3 class="news-title">${escapeHtml(news.title)}</h3>
+                  <span class="toggle-indicator" data-toggle-label>접기 −</span>
+                </div>
+              </div>
+              <div class="news-card-body">
+                <div class="analysis-columns">
+                  <div class="analysis-block">
+                    <div class="analysis-label">
+                      <span class="tag-bracket">[관측 팩트]</span> Observed Facts
+                    </div>
+                    ${renderBulletList(news.observed_facts)}
+                  </div>
+                  <div class="analysis-block">
+                    <div class="analysis-label">
+                      <span class="tag-bracket">[파급 경로]</span> Transmission Path
+                    </div>
+                    ${renderBulletList(news.transmission_path)}
+                  </div>
+                  <div class="analysis-block">
+                    <div class="analysis-label">
+                      <span class="tag-bracket">[이 분석이 틀렸다면]</span> Falsification Criteria
+                    </div>
+                    ${renderBulletList(news.invalidating_conditions)}
+                  </div>
+                </div>
+                <div class="action-tip-box">
+                  <div class="action-tip-label">[실전 체크 팁] Actionable Watchpoint</div>
+                  <p class="action-tip-text">${escapeHtml(news.action_tip)}</p>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      // 카드 개별 접기/펼치기 이벤트 바인딩
+      const cardHeaders = newsContainerEl.querySelectorAll(".news-card-header");
+      cardHeaders.forEach((header) => {
+        const toggleCard = () => {
+          const card = header.closest(".news-card");
+          const isCollapsed = card.classList.toggle("is-collapsed");
+          header.setAttribute("aria-expanded", String(!isCollapsed));
+          const labelEl = header.querySelector("[data-toggle-label]");
+          if (labelEl) {
+            labelEl.textContent = isCollapsed ? "펼치기 +" : "접기 −";
+          }
+        };
+
+        header.addEventListener("click", toggleCard);
+        header.addEventListener("keydown", (e) => {
+          if (e.key === "Enter" || e.key === " ") {
+            e.preventDefault();
+            toggleCard();
+          }
+        });
+      });
+
+      if (footerMetaEl) {
+        footerMetaEl.textContent = `REPORT DATE: ${data.date || "N/A"} · RENDERED BY renderDashboard()`;
+      }
+    }
+
+    // 전체 펼치기 / 접기 컨트롤 이벤트 바인딩
+    document.getElementById("btn-expand-all").addEventListener("click", () => {
+      document.querySelectorAll(".news-card").forEach((card) => {
+        card.classList.remove("is-collapsed");
+        const header = card.querySelector(".news-card-header");
+        const label = card.querySelector("[data-toggle-label]");
+        if (header) header.setAttribute("aria-expanded", "true");
+        if (label) label.textContent = "접기 −";
+      });
+    });
+
+    document.getElementById("btn-collapse-all").addEventListener("click", () => {
+      document.querySelectorAll(".news-card").forEach((card) => {
+        card.classList.add("is-collapsed");
+        const header = card.querySelector(".news-card-header");
+        const label = card.querySelector("[data-toggle-label]");
+        if (header) header.setAttribute("aria-expanded", "false");
+        if (label) label.textContent = "펼치기 +";
+      });
+    });
+
+    // 초기 렌더링 실행
+    document.addEventListener("DOMContentLoaded", () => {
+      renderDashboard(reportData);
+    });
+  </script>
+</body>
+</html>
+
